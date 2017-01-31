@@ -25,4 +25,9 @@ public class NettyProtobufEncoder extends MessageToByteEncoder<AbstractMessage> 
         byteBuf.writeInt(mMessageRegistry.getMessageIdentifierFromClass(abstractMessage.getClass()));
         byteBuf.writeBytes(buffer);
     }
+
+    @Override
+    public boolean isSharable() {
+        return true;
+    }
 }

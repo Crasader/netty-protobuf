@@ -32,6 +32,11 @@ public class NettyProtobufDecoder extends ByteToMessageDecoder {
         }
     }
 
+    @Override
+    public boolean isSharable() {
+        return true;
+    }
+
     private AbstractMessage decode(ChannelHandlerContext ctx, ByteBuf byteBuf) throws Exception {
         int readerIdx = byteBuf.readerIndex();
         do {

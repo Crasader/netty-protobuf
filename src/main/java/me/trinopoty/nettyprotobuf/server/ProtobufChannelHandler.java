@@ -42,6 +42,11 @@ final class ProtobufChannelHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
+    public boolean isSharable() {
+        return true;
+    }
+
+    @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         AbstractMessage message = (AbstractMessage) msg;
         mExecutorService.execute(new MessageHandlerWorker(mMessageRegistry.getMessageHandlerFromClass(message.getClass()), ctx, message));
