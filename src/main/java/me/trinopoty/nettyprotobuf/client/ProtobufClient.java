@@ -53,4 +53,8 @@ public final class ProtobufClient {
     public ProtobufClientChannel getClientChannel(InetSocketAddress pRemoteAddress) {
         return new ProtobufClientChannel(mBootstrap.connect(pRemoteAddress));
     }
+
+    public void close() {
+        mClientGroup.shutdownGracefully();
+    }
 }
