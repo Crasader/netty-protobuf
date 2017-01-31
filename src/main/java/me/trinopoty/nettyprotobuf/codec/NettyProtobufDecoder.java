@@ -13,7 +13,6 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 
-@ChannelHandler.Sharable
 public class NettyProtobufDecoder extends ByteToMessageDecoder {
 
     private static HashMap<Class<? extends AbstractMessage>, Method> PROTOBUF_PARSER = new HashMap<>();
@@ -30,11 +29,6 @@ public class NettyProtobufDecoder extends ByteToMessageDecoder {
         if(msg != null) {
             list.add(msg);
         }
-    }
-
-    @Override
-    public boolean isSharable() {
-        return true;
     }
 
     private AbstractMessage decode(ChannelHandlerContext ctx, ByteBuf byteBuf) throws Exception {
