@@ -2,6 +2,7 @@ package me.trinopoty.nettyprotobuf.codec;
 
 import com.google.protobuf.AbstractMessage;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.TooLongFrameException;
@@ -12,6 +13,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 
+@ChannelHandler.Sharable
 public class NettyProtobufDecoder extends ByteToMessageDecoder {
 
     private static HashMap<Class<? extends AbstractMessage>, Method> PROTOBUF_PARSER = new HashMap<>();

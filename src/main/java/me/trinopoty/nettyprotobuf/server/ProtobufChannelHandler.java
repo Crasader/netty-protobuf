@@ -1,12 +1,14 @@
 package me.trinopoty.nettyprotobuf.server;
 
 import com.google.protobuf.AbstractMessage;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import me.trinopoty.nettyprotobuf.ProtobufMessageRegistry;
 
 import java.util.concurrent.ExecutorService;
 
+@ChannelHandler.Sharable
 final class ProtobufChannelHandler extends ChannelInboundHandlerAdapter {
 
     private static final class MessageHandlerWorker implements Runnable {

@@ -2,10 +2,12 @@ package me.trinopoty.nettyprotobuf.codec;
 
 import com.google.protobuf.AbstractMessage;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import me.trinopoty.nettyprotobuf.ProtobufMessageRegistry;
 
+@ChannelHandler.Sharable
 public class NettyProtobufEncoder extends MessageToByteEncoder<AbstractMessage> {
 
     private ProtobufMessageRegistry mMessageRegistry;
