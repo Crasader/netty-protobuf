@@ -40,6 +40,7 @@ public final class ProtobufClientChannel {
     }
 
     public synchronized AbstractMessage sendMessageSync(AbstractMessage pMessage) throws Exception {
+        sync();
         mChannelFuture.channel().writeAndFlush(pMessage).sync();
         if(mChannelFuture.isSuccess()) {
             ProtobufChannelHandler clientHandler = (ProtobufChannelHandler) mChannelFuture.channel().pipeline().last();
