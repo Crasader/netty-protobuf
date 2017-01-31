@@ -14,7 +14,7 @@ public final class ProtobufClientChannel {
     private ChannelFuture mChannelFuture;
     private MessageResponseHandler mAsyncMessageResponseHandler;
 
-    private GenericFutureListener<ChannelFuture> mChannelFutureListener = new ChannelFutureListener() {
+    /*private GenericFutureListener<ChannelFuture> mChannelFutureListener = new ChannelFutureListener() {
         @Override
         public void operationComplete(ChannelFuture pChannelFuture) throws Exception {
             if(mAsyncMessageResponseHandler != null) {
@@ -22,7 +22,7 @@ public final class ProtobufClientChannel {
                 mAsyncMessageResponseHandler = null;
             }
         }
-    };
+    };*/
 
     ProtobufClientChannel(ChannelFuture pChannelFuture) {
         mChannelFuture = pChannelFuture;
@@ -49,11 +49,11 @@ public final class ProtobufClientChannel {
         }
     }
 
-    public synchronized void sendMessageAsync(AbstractMessage pMessage, MessageResponseHandler pHandler) throws Exception {
+    /*public synchronized void sendMessageAsync(AbstractMessage pMessage, MessageResponseHandler pHandler) throws Exception {
         if(mAsyncMessageResponseHandler != null) {
             throw new IllegalAccessException("An async call is already pending.");
         }
         mAsyncMessageResponseHandler = pHandler;
         mChannelFuture.channel().writeAndFlush(pMessage).addListener(mChannelFutureListener);
-    }
+    }*/
 }
