@@ -6,6 +6,7 @@ import me.trinopoty.nettyprotobuf.client.ProtobufClient;
 import me.trinopoty.nettyprotobuf.client.ProtobufClientChannel;
 import me.trinopoty.nettyprotobuf.server.ProtobufMessageHandler;
 import me.trinopoty.nettyprotobuf.server.ProtobufServer;
+import me.trinopoty.nettyprotobuf.server.ProtobufServerExceptionHandler;
 import me.trinopoty.nettyprotobuf.server.ProtobufServerMessageRegistry;
 import me.trinopoty.nettyprotobuf.test.message.EchoMessageOuterClass;
 import org.junit.After;
@@ -19,7 +20,7 @@ import static org.junit.Assert.*;
 
 public class ProtobufEchoTest {
 
-    private static final class ProtobufTestRegistry extends ProtobufServerMessageRegistry {
+    private static final class ProtobufTestRegistry extends ProtobufServerMessageRegistry implements ProtobufServerExceptionHandler {
 
         @Override
         public Integer getMessageIdentifierFromClass(Class<? extends AbstractMessage> messageClass) {
@@ -34,6 +35,11 @@ public class ProtobufEchoTest {
         @Override
         public ProtobufMessageHandler getMessageHandlerFromClass(Class<? extends AbstractMessage> messageClass) {
             return (messageClass.equals(EchoMessageOuterClass.EchoMessage.class))? new EchoMessageHandler() : null;
+        }
+
+        @Override
+        public ProtobufServerExceptionHandler getExceptionHandler() {
+            return null;
         }
     }
 

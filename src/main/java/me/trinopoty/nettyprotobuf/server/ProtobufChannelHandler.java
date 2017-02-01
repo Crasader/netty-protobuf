@@ -32,6 +32,31 @@ final class ProtobufChannelHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
+    private static final class ExceptionHandlerWorker implements Runnable {
+
+        private ProtobufServerExceptionHandler mExceptionHandler;
+        private ChannelHandlerContext mContext;
+        private Throwable mCause;
+
+        ExceptionHandlerWorker(ProtobufServerExceptionHandler pExceptionHandler, ChannelHandlerContext pContext, Throwable pCause) {
+            mExceptionHandler = pExceptionHandler;
+            mContext = pContext;
+            mCause = pCause;
+        }
+
+        @Override
+        public void run() {
+            if(mExceptionHandler != null) {
+                mExceptionHandler.handleException(mContext, mCause);
+            } else {
+                // TODO: Implement later
+
+                mCause.printStackTrace();
+                mContext.close();
+            }
+        }
+    }
+
     private ProtobufServerMessageRegistry mMessageRegistry;
     private ExecutorService mExecutorService;
 
@@ -49,5 +74,10 @@ final class ProtobufChannelHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         AbstractMessage message = (AbstractMessage) msg;
         mExecutorService.execute(new MessageHandlerWorker(mMessageRegistry.getMessageHandlerFromClass(message.getClass()), ctx, message));
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        mExecutorService.execute(new ExceptionHandlerWorker(mMessageRegistry.getExceptionHandler(), ctx, cause));
     }
 }

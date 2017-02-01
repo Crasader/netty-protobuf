@@ -10,4 +10,6 @@ public abstract class ProtobufServerMessageRegistry extends ProtobufClientMessag
     public final ProtobufMessageHandler getMessageHandlerFromIdentifier(int identifier) {
         return getMessageHandlerFromClass(getMessageClassFromIdentifier(identifier));
     }
+
+    public abstract ProtobufServerExceptionHandler getExceptionHandler();
 }
