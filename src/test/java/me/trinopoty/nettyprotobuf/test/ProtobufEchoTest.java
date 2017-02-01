@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 
 public class ProtobufEchoTest {
 
-    private static final class ProtobufTestRegistry extends ProtobufServerMessageRegistry implements ProtobufServerExceptionHandler {
+    private static final class ProtobufTestRegistry extends ProtobufServerMessageRegistry {
 
         @Override
         public Integer getMessageIdentifierFromClass(Class<? extends AbstractMessage> messageClass) {
