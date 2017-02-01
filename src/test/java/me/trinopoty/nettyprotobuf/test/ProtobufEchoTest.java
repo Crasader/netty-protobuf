@@ -68,6 +68,9 @@ public class ProtobufEchoTest {
         ProtobufClient protobufClient = (new ProtobufClient.ProtobufClientBuilder()).setProtobufMessageRegistry(mProtobufTestRegistry).build();
         ProtobufClientChannel c = protobufClient.getClientChannel(new InetSocketAddress(InetAddress.getLoopbackAddress(), 8945));
         AbstractMessage resposeMessage = c.sendMessageSync(EchoMessageOuterClass.EchoMessage.newBuilder().setMsg("Hello World").build());
+        c.close();
+        protobufClient.close();
+
         assertNotNull(resposeMessage);
         assertTrue(resposeMessage instanceof EchoMessageOuterClass.EchoMessage);
         assertEquals("Hello World", ((EchoMessageOuterClass.EchoMessage) resposeMessage).getMsg());
