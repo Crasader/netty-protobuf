@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 
-public class NettyProtobufDecoder extends ByteToMessageDecoder {
+public final class NettyProtobufDecoder extends ByteToMessageDecoder {
 
     private static HashMap<Class<? extends AbstractMessage>, Method> PROTOBUF_PARSER = new HashMap<>();
 

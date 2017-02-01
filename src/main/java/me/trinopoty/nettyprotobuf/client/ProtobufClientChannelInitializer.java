@@ -12,7 +12,7 @@ final class ProtobufClientChannelInitializer extends ChannelInitializer<SocketCh
 
     private ProtobufClientMessageRegistry mMessageRegistry;
 
-    public ProtobufClientChannelInitializer(ProtobufClientMessageRegistry messageRegistry) {
+    ProtobufClientChannelInitializer(ProtobufClientMessageRegistry messageRegistry) {
         if(messageRegistry == null) {
             throw new IllegalArgumentException("messageRegistry must not be null.");
         }

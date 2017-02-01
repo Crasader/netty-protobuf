@@ -8,7 +8,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import me.trinopoty.nettyprotobuf.client.ProtobufClientMessageRegistry;
 
 @ChannelHandler.Sharable
-public class NettyProtobufEncoder extends MessageToByteEncoder<AbstractMessage> {
+public final class NettyProtobufEncoder extends MessageToByteEncoder<AbstractMessage> {
 
     private ProtobufClientMessageRegistry mMessageRegistry;
 
