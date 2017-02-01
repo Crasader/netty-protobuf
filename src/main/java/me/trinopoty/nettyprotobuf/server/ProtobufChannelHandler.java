@@ -4,7 +4,6 @@ import com.google.protobuf.AbstractMessage;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import me.trinopoty.nettyprotobuf.ProtobufMessageRegistry;
 
 import java.util.concurrent.ExecutorService;
 
@@ -33,10 +32,10 @@ final class ProtobufChannelHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
-    private ProtobufMessageRegistry mMessageRegistry;
+    private ProtobufServerMessageRegistry mMessageRegistry;
     private ExecutorService mExecutorService;
 
-    ProtobufChannelHandler(ProtobufMessageRegistry pMessageRegistry, ExecutorService pExecutorService) {
+    ProtobufChannelHandler(ProtobufServerMessageRegistry pMessageRegistry, ExecutorService pExecutorService) {
         mMessageRegistry = pMessageRegistry;
         mExecutorService = pExecutorService;
     }

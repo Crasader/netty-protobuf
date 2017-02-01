@@ -3,7 +3,6 @@ package me.trinopoty.nettyprotobuf.server;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-import me.trinopoty.nettyprotobuf.ProtobufMessageRegistry;
 import me.trinopoty.nettyprotobuf.codec.NettyProtobufDecoder;
 import me.trinopoty.nettyprotobuf.codec.NettyProtobufEncoder;
 
@@ -14,9 +13,9 @@ final class ProtobufServerChannelInitializer extends ChannelInitializer<SocketCh
     private static NettyProtobufEncoder PROTOBUF_ENCODER;
     private static ProtobufChannelHandler PROTOBUF_HANDLER;
 
-    private ProtobufMessageRegistry mMessageRegistry;
+    private ProtobufServerMessageRegistry mMessageRegistry;
 
-    ProtobufServerChannelInitializer(ProtobufMessageRegistry pMessageRegistry, ExecutorService pExecutorService) {
+    ProtobufServerChannelInitializer(ProtobufServerMessageRegistry pMessageRegistry, ExecutorService pExecutorService) {
         if(pMessageRegistry == null) {
             throw new IllegalArgumentException("messageRegistry must not be null.");
         }

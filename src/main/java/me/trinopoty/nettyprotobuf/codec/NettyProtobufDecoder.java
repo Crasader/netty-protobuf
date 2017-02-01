@@ -2,11 +2,10 @@ package me.trinopoty.nettyprotobuf.codec;
 
 import com.google.protobuf.AbstractMessage;
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.TooLongFrameException;
-import me.trinopoty.nettyprotobuf.ProtobufMessageRegistry;
+import me.trinopoty.nettyprotobuf.client.ProtobufClientMessageRegistry;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -17,9 +16,9 @@ public class NettyProtobufDecoder extends ByteToMessageDecoder {
 
     private static HashMap<Class<? extends AbstractMessage>, Method> PROTOBUF_PARSER = new HashMap<>();
 
-    private ProtobufMessageRegistry mMessageRegistry;
+    private ProtobufClientMessageRegistry mMessageRegistry;
 
-    public NettyProtobufDecoder(ProtobufMessageRegistry messageRegistry) {
+    public NettyProtobufDecoder(ProtobufClientMessageRegistry messageRegistry) {
         mMessageRegistry = messageRegistry;
     }
 

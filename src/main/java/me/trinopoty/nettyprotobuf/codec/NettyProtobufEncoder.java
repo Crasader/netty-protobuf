@@ -5,14 +5,14 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
-import me.trinopoty.nettyprotobuf.ProtobufMessageRegistry;
+import me.trinopoty.nettyprotobuf.client.ProtobufClientMessageRegistry;
 
 @ChannelHandler.Sharable
 public class NettyProtobufEncoder extends MessageToByteEncoder<AbstractMessage> {
 
-    private ProtobufMessageRegistry mMessageRegistry;
+    private ProtobufClientMessageRegistry mMessageRegistry;
 
-    public NettyProtobufEncoder(ProtobufMessageRegistry messageRegistry) {
+    public NettyProtobufEncoder(ProtobufClientMessageRegistry messageRegistry) {
         mMessageRegistry = messageRegistry;
     }
 

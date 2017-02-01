@@ -4,7 +4,6 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import me.trinopoty.nettyprotobuf.ProtobufMessageRegistry;
 
 import java.net.InetSocketAddress;
 
@@ -12,13 +11,13 @@ public final class ProtobufClient {
 
     public static final class ProtobufClientBuilder {
 
-        private ProtobufMessageRegistry mProtobufMessageRegistry = null;
+        private ProtobufClientMessageRegistry mProtobufMessageRegistry = null;
 
         public ProtobufClientBuilder() {
 
         }
 
-        public ProtobufClient.ProtobufClientBuilder setProtobufMessageRegistry(ProtobufMessageRegistry pProtobufMessageRegistry) {
+        public ProtobufClient.ProtobufClientBuilder setProtobufMessageRegistry(ProtobufClientMessageRegistry pProtobufMessageRegistry) {
             mProtobufMessageRegistry = pProtobufMessageRegistry;
             return this;
         }
@@ -38,7 +37,7 @@ public final class ProtobufClient {
         }
     }
 
-    private ProtobufMessageRegistry mProtobufMessageRegistry;
+    private ProtobufClientMessageRegistry mProtobufMessageRegistry;
 
     private EventLoopGroup mClientGroup;
     private Bootstrap mBootstrap;

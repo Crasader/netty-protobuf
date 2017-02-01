@@ -2,11 +2,11 @@ package me.trinopoty.nettyprotobuf.test;
 
 import com.google.protobuf.AbstractMessage;
 import io.netty.channel.*;
-import me.trinopoty.nettyprotobuf.ProtobufMessageRegistry;
 import me.trinopoty.nettyprotobuf.client.ProtobufClient;
 import me.trinopoty.nettyprotobuf.client.ProtobufClientChannel;
 import me.trinopoty.nettyprotobuf.server.ProtobufMessageHandler;
 import me.trinopoty.nettyprotobuf.server.ProtobufServer;
+import me.trinopoty.nettyprotobuf.server.ProtobufServerMessageRegistry;
 import me.trinopoty.nettyprotobuf.test.message.EchoMessageOuterClass;
 import org.junit.After;
 import org.junit.Before;
@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 
 public class ProtobufEchoTest {
 
-    private static final class ProtobufTestRegistry extends ProtobufMessageRegistry {
+    private static final class ProtobufTestRegistry extends ProtobufServerMessageRegistry {
 
         @Override
         public Integer getMessageIdentifierFromClass(Class<? extends AbstractMessage> messageClass) {

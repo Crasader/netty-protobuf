@@ -6,7 +6,6 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import me.trinopoty.nettyprotobuf.ProtobufMessageRegistry;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -19,7 +18,7 @@ public final class ProtobufServer {
         private InetSocketAddress mLocalAddress = null;
         private int mBacklogCount = 5;
         private boolean mKeepAlive = true;
-        private ProtobufMessageRegistry mProtobufMessageRegistry = null;
+        private ProtobufServerMessageRegistry mProtobufMessageRegistry = null;
 
         public ProtobufServerBuilder() {
         }
@@ -44,7 +43,7 @@ public final class ProtobufServer {
             return this;
         }
 
-        public ProtobufServerBuilder setProtobufMessageRegistry(ProtobufMessageRegistry pProtobufMessageRegistry) {
+        public ProtobufServerBuilder setProtobufMessageRegistry(ProtobufServerMessageRegistry pProtobufMessageRegistry) {
             mProtobufMessageRegistry = pProtobufMessageRegistry;
             return this;
         }
@@ -54,7 +53,7 @@ public final class ProtobufServer {
                 throw new IllegalArgumentException("localAddress must be provided.");
             }
             if(mProtobufMessageRegistry == null) {
-                throw new IllegalArgumentException("Instance of ProtobufMessageRegistry must be provided.");
+                throw new IllegalArgumentException("Instance of ProtobufServerMessageRegistry must be provided.");
             }
 
             ProtobufServer protobufServer = new ProtobufServer();
@@ -76,7 +75,7 @@ public final class ProtobufServer {
         }
     }
 
-    private ProtobufMessageRegistry mProtobufMessageRegistry;
+    private ProtobufServerMessageRegistry mProtobufMessageRegistry;
     private InetSocketAddress mLocalAddress;
     private ExecutorService mRequestExecutor;
 
