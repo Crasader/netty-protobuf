@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 final class ProtobufChannelHandler extends ChannelInboundHandlerAdapter {
 
+    private boolean mIsActive = false;
     private BlockingQueue<AbstractMessage> mMessageQueue = new LinkedBlockingQueue<>();
 
     ProtobufChannelHandler() {
@@ -22,11 +23,30 @@ final class ProtobufChannelHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        mIsActive = true;
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        mIsActive = false;
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        // Do nothing for now
+    }
+
     AbstractMessage getMessage() {
         try {
             return mMessageQueue.poll(1, TimeUnit.SECONDS);
         } catch(InterruptedException ex) {
             return null;
         }
+    }
+
+    boolean getIsActive() {
+        return mIsActive;
     }
 }

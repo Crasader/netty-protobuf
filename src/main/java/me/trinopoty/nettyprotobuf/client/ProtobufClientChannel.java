@@ -57,4 +57,8 @@ public final class ProtobufClientChannel {
         mAsyncMessageResponseHandler = pHandler;
         mChannelFuture.channel().writeAndFlush(pMessage).addListener(mChannelFutureListener);
     }*/
+
+    public synchronized boolean getIsActive() {
+        return ((ProtobufChannelHandler) mChannelFuture.channel().pipeline().last()).getIsActive();
+    }
 }
