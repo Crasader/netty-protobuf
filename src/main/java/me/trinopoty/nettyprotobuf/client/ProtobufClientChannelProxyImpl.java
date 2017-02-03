@@ -2,7 +2,7 @@ package me.trinopoty.nettyprotobuf.client;
 
 import com.google.protobuf.AbstractMessage;
 
-public class ProtobufClientChannelProxyImpl extends ProtobufClientChannel {
+class ProtobufClientChannelProxyImpl extends ProtobufClientChannel {
 
     private ProtobufClientChannel mClientChannel;
     private ProtobufClientChannelPool mClientChannelPool;
