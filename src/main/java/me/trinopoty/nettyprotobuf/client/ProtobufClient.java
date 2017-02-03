@@ -53,6 +53,14 @@ public final class ProtobufClient {
         return new ProtobufClientChannelImpl(mBootstrap.connect(pRemoteAddress));
     }
 
+    public ProtobufClientChannelPool getClientChannelPool(ProtobufClientChannelPoolConfig poolConfig, String host, int port) {
+        return getClientChannelPool(poolConfig, new InetSocketAddress(host, port));
+    }
+
+    public ProtobufClientChannelPool getClientChannelPool(ProtobufClientChannelPoolConfig poolConfig, InetSocketAddress remoteAddress) {
+        return new ProtobufClientChannelPool(this, poolConfig, remoteAddress);
+    }
+
     public void close() {
         mClientGroup.shutdownGracefully();
     }
