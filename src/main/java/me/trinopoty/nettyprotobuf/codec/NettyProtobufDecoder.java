@@ -14,7 +14,7 @@ import java.util.List;
 
 public final class NettyProtobufDecoder extends ByteToMessageDecoder {
 
-    private static HashMap<Class<? extends AbstractMessage>, Method> PROTOBUF_PARSER = new HashMap<>();
+    private static HashMap<Class<? extends AbstractMessage>, Method> PROTOBUF_PARSER = new HashMap<Class<? extends AbstractMessage>, Method>();
 
     private ProtobufClientMessageRegistry mMessageRegistry;
 
@@ -66,7 +66,8 @@ public final class NettyProtobufDecoder extends ByteToMessageDecoder {
         AbstractMessage msg = null;
         try {
             msg = (AbstractMessage) getProtobufParserMethod(messageClass).invoke(null, protobufData);
-        } catch (InvocationTargetException | IllegalAccessException ignore) {
+        } catch (InvocationTargetException ignore) {
+        } catch(IllegalAccessException ignore) {
         }
         return msg;
     }
