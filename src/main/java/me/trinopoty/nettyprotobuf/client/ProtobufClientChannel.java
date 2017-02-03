@@ -2,41 +2,13 @@ package me.trinopoty.nettyprotobuf.client;
 
 import com.google.protobuf.AbstractMessage;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.util.concurrent.GenericFutureListener;
 
-public final class ProtobufClientChannel {
-
-    public interface MessageResponseHandler {
-        void responseReceived(AbstractMessage pMessage);
-    }
+public final class ProtobufClientChannel extends ProtobufClientChannelAbstract {
 
     private ChannelFuture mChannelFuture;
-    private MessageResponseHandler mAsyncMessageResponseHandler;
-
-    /*private GenericFutureListener<ChannelFuture> mChannelFutureListener = new ChannelFutureListener() {
-        @Override
-        public void operationComplete(ChannelFuture pChannelFuture) throws Exception {
-            if(mAsyncMessageResponseHandler != null) {
-                mAsyncMessageResponseHandler.responseReceived(pChannelFuture.isSuccess()? ((ProtobufChannelHandler) mChannelFuture.channel().pipeline().last()).getMessage() : null);
-                mAsyncMessageResponseHandler = null;
-            }
-        }
-    };*/
 
     ProtobufClientChannel(ChannelFuture pChannelFuture) {
         mChannelFuture = pChannelFuture;
-    }
-
-    public synchronized void sync() throws InterruptedException {
-        mChannelFuture.sync();
-    }
-
-    public synchronized void close() {
-        try {
-            mChannelFuture.channel().close().sync();
-        } catch(InterruptedException ignore) {
-        }
     }
 
     public synchronized AbstractMessage sendMessageSync(AbstractMessage pMessage) throws Exception {
@@ -50,13 +22,16 @@ public final class ProtobufClientChannel {
         }
     }
 
-    /*public synchronized void sendMessageAsync(AbstractMessage pMessage, MessageResponseHandler pHandler) throws Exception {
-        if(mAsyncMessageResponseHandler != null) {
-            throw new IllegalAccessException("An async call is already pending.");
+    public synchronized void sync() throws InterruptedException {
+        mChannelFuture.sync();
+    }
+
+    public synchronized void close() {
+        try {
+            mChannelFuture.channel().close().sync();
+        } catch(InterruptedException ignore) {
         }
-        mAsyncMessageResponseHandler = pHandler;
-        mChannelFuture.channel().writeAndFlush(pMessage).addListener(mChannelFutureListener);
-    }*/
+    }
 
     public synchronized boolean getIsActive() {
         return ((ProtobufChannelHandler) mChannelFuture.channel().pipeline().last()).getIsActive();
