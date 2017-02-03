@@ -78,6 +78,9 @@ final class ProtobufChannelHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        if(cause != null) {
+            cause.printStackTrace();
+        }
         mExecutorService.execute(new ExceptionHandlerWorker(mMessageRegistry.getExceptionHandler(), ctx, cause));
     }
 }

@@ -11,9 +11,7 @@ import me.trinopoty.nettyprotobuf.server.ProtobufServer;
 import me.trinopoty.nettyprotobuf.server.ProtobufServerExceptionHandler;
 import me.trinopoty.nettyprotobuf.server.ProtobufServerMessageRegistry;
 import me.trinopoty.nettyprotobuf.test.message.EchoMessageOuterClass;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -55,25 +53,25 @@ public class ProtobufEchoTest {
         }
     }
 
-    private ProtobufTestRegistry mProtobufTestRegistry;
-    private ProtobufServer mProtobufServer;
+    private static ProtobufTestRegistry sProtobufTestRegistry;
+    private static ProtobufServer sProtobufServer;
 
-    @Before
-    public void setUp() throws Exception {
-        mProtobufTestRegistry = new ProtobufTestRegistry();
+    @BeforeClass
+    public static void setUp() throws Exception {
+        sProtobufTestRegistry = new ProtobufTestRegistry();
 
-        mProtobufServer = (new ProtobufServer.ProtobufServerBuilder()).setProtobufMessageRegistry(mProtobufTestRegistry).setLocalPort(8945).build();
-        mProtobufServer.startServer();
+        sProtobufServer = (new ProtobufServer.ProtobufServerBuilder()).setProtobufMessageRegistry(sProtobufTestRegistry).setLocalPort(8945).build();
+        sProtobufServer.startServer();
     }
 
-    @After
-    public void tearDown() throws Exception {
-        mProtobufServer.stopServer();
+    @AfterClass
+    public static void tearDown() throws Exception {
+        sProtobufServer.stopServer();
     }
 
     @Test
     public void testEcho1() throws Exception {
-        ProtobufClient protobufClient = (new ProtobufClient.ProtobufClientBuilder()).setProtobufMessageRegistry(mProtobufTestRegistry).build();
+        ProtobufClient protobufClient = (new ProtobufClient.ProtobufClientBuilder()).setProtobufMessageRegistry(sProtobufTestRegistry).build();
         ProtobufClientChannel c = protobufClient.getClientChannel(new InetSocketAddress(InetAddress.getLoopbackAddress(), 8945));
         AbstractMessage resposeMessage = c.sendMessageSync(EchoMessageOuterClass.EchoMessage.newBuilder().setMsg("Hello World").build());
         c.close();
@@ -92,7 +90,7 @@ public class ProtobufEchoTest {
         poolConfig.setMinIdle(1);
         poolConfig.setMaxWaitMillis(3000);
 
-        ProtobufClient protobufClient = (new ProtobufClient.ProtobufClientBuilder()).setProtobufMessageRegistry(mProtobufTestRegistry).build();
+        ProtobufClient protobufClient = (new ProtobufClient.ProtobufClientBuilder()).setProtobufMessageRegistry(sProtobufTestRegistry).build();
         ProtobufClientChannelPool channelPool = protobufClient.getClientChannelPool(poolConfig, new InetSocketAddress(InetAddress.getLoopbackAddress(), 8945));
         ProtobufClientChannel c1 = channelPool.getResource();
         ProtobufClientChannel c2 = channelPool.getResource();
