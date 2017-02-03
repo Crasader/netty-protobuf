@@ -13,23 +13,23 @@ class ProtobufClientChannelProxyImpl extends ProtobufClientChannel {
     }
 
     @Override
-    public AbstractMessage sendMessageSync(AbstractMessage message) throws Exception {
+    public synchronized AbstractMessage sendMessageSync(AbstractMessage message) throws Exception {
         return mClientChannel.sendMessageSync(message);
     }
 
     @Override
-    public void sync() throws InterruptedException {
+    public synchronized void sync() throws InterruptedException {
         mClientChannel.sync();
     }
 
     @Override
-    public void close() throws Exception {
+    public synchronized void close() throws Exception {
         // Return to the pool
         mClientChannelPool.returnResource(this);
     }
 
     @Override
-    public boolean getIsActive() {
+    public synchronized boolean getIsActive() {
         return mClientChannel.getIsActive();
     }
 
