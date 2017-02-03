@@ -23,7 +23,7 @@ public final class ProtobufClientChannelPool implements Closeable {
         @Override
         public PooledObject<ProtobufClientChannel> makeObject() throws Exception {
             ProtobufClientChannel clientChannel = new ProtobufClientChannelProxyImpl(mClient.getClientChannel(mRemoteAddress), ProtobufClientChannelPool.this);
-            return new DefaultPooledObject<ProtobufClientChannel>(clientChannel);
+            return new DefaultPooledObject<>(clientChannel);
         }
 
         @Override
@@ -50,7 +50,7 @@ public final class ProtobufClientChannelPool implements Closeable {
     private GenericObjectPool<ProtobufClientChannel> mClientChannelPool;
 
     ProtobufClientChannelPool(ProtobufClient client, ProtobufClientChannelPoolConfig poolConfig, InetSocketAddress remoteAddress) {
-        mClientChannelPool = new GenericObjectPool<ProtobufClientChannel>(new ProtobufClientChannelFactory(client, remoteAddress), poolConfig);
+        mClientChannelPool = new GenericObjectPool<>(new ProtobufClientChannelFactory(client, remoteAddress), poolConfig);
     }
 
     public ProtobufClientChannel getResource() {

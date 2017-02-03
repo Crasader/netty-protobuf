@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 final class ProtobufChannelHandler extends ChannelInboundHandlerAdapter {
 
     private boolean mIsActive = false;
-    private BlockingQueue<AbstractMessage> mMessageQueue = new LinkedBlockingQueue<AbstractMessage>();
+    private BlockingQueue<AbstractMessage> mMessageQueue = new LinkedBlockingQueue<>();
 
     ProtobufChannelHandler() {
     }
